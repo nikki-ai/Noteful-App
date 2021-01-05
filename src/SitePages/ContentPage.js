@@ -1,20 +1,30 @@
 import React from 'react';
 import '../Split.css';
 import Notes from './Notes'
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import ApiContext from '../ApiContext';
+
 
 class Content extends React.Component {
+    static contextType = ApiContext;
+    
+    findNote = (notes = [], noteId) => notes.find((note) => note.id === noteId);
+    
     findFolder = (folders, folderId) => {
         return folders.find((folder) =>folder.id === folderId)
     }
+    
     render() {
-        const currentFolder = this.findFolder(this.props.folders, this.props.note.folderId)
+
+        const {notes = []} = this.context;
+        const noteId = this.props.match.params.noteId;
+        const note = this.findNote(notes, noteId) || {content: ''};
+        const currentFolder = this.findFolder(this.context.folders, note.folderId);
+        
         return (
-            <div>
+            <div className='mainStyling'>
             <div className='split left'>
-                <Link to = {'/'}>
-                    Go Back
-                </Link>
+            <button className='body-button' onClick={() => this.props.history.goBack()}>Go Back</button>
                 <div>
                     {currentFolder.name}
                 </div>
@@ -22,11 +32,9 @@ class Content extends React.Component {
             </div>
             <div className='split right'>
         <Notes 
-            id = {this.props.note.id}
-            name = {this.props.note.name}
-            modified = {this.props.note.modified}
+            id = {note.id}
         />
-            {this.props.note.content}
+            {note.content}
         </div>
         </div>
         )

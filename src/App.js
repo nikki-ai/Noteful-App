@@ -3,6 +3,12 @@ import Main from './SitePages/Main';
 import { Route, Link } from 'react-router-dom';
 import DummyStore from './DummyStore';
 import Content from './SitePages/ContentPage';
+import ApiContext from './ApiContext';
+import './Split.css';
+import config from './config';
+import AddFolder from './SitePages/AddFolder';
+import AddNote from './SitePages/AddNote';
+
 
 class App extends React.Component {
   constructor() {
@@ -14,7 +20,24 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.setState(DummyStore);
+    Promise.all([
+      fetch(`${config.url}/notes`),
+      fetch(`${config.url}/folders`)
+    ])
+    .then(([notesResponse, foldersResponse]) =>{
+      if(!notesResponse.ok)
+      return notesResponse.json().then(error => Promise.reject(error));
+      if(!foldersResponse.ok)
+      return foldersResponse.json().then(error => Promise.reject(error));
+      return Promise.all([notesResponse.json(), foldersResponse.json()])
+    })
+    .then(([notes, folders]) =>{
+      console.log(notes,folders)
+      this.setState({notes, folders});
+    })
+    .catch(error =>{
+      console.error({error});
+    });
   };
 
   getNotes = (notes = [], folderId) =>
@@ -23,11 +46,53 @@ class App extends React.Component {
   /* Function that finds notes for given note clicked on */
   findNote = (notes = [], noteId) => notes.find((note) => note.id === noteId);
 
+  handleDeleteNote = noteId => {
+    const deleteUrl = `${config.url}/notes/${noteId}`;
+    fetch(deleteUrl, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        } else {
+          this.setState({
+            notes: this.state.notes.filter(note => note.id !== noteId)
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+}
+
+  addFolder = (newFolder) => {
+    const addFolder = [...this.state.folders, newFolder];
+    this.setState({ folders: addFolder });
+  };
+
+  addNote = (newNote) => {
+    const addNote = [...this.state.notes, newNote];
+    this.setState({ notes: addNote });
+  };
+
   render() {
-    const { notes, folders } = this.state;
+    // Set global prop value
+
+    const value = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      deleteNote: this.handleDeleteNote,
+      getNotes: this.getNotes,
+      addFolder: this.addFolder,
+      addNote: this.addNote
+    };
+
     return (
-      <div>
-        <header className='white'>
+      <ApiContext.Provider value = {value}>
+      
+      
+        <header>
           <Link to='/'>
             <h1>Noteful</h1>
           </Link>
@@ -38,29 +103,28 @@ class App extends React.Component {
             exact
             key={path}
             path={path}
-            render={(routeProps) => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = this.getNotes(notes, folderId);
-              return (
-                <Main
-                  {...routeProps}
-                  notes={notesForFolder}
-                  folders={folders}
-                  folderNotes={notes}
-                />
-              );
-            }}
+            component = {Main}
           />
         ))}
+
         <Route
           path='/note/:noteId'
-          render={(routeProps) => {
-            const { noteId } = routeProps.match.params;
-            const note = this.findNote(notes, noteId);
-            return <Content {...routeProps} note={note} folders={folders} />;
-          }}
+          component = {Content}
         />
-      </div>
+
+        <Route
+          path='/add-folder'
+          component = {AddFolder}
+        />
+
+        <Route
+          path='/add-note'
+          component = {AddNote}
+        />
+        <footer></footer>
+      
+      
+      </ApiContext.Provider>
     );
   }
 }
