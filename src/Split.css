@@ -35,13 +35,14 @@ body {
   right:0px; 
   overflow: hidden;
   padding-top: 10px;
+  justify-content: center;
 }
 
 /* Control the left side */
 .left {
   left: 0;
   width: 25%;
-  padding: 10px;
+  padding: 5px;
   max-width: 200px;
 }
 
@@ -71,6 +72,9 @@ body {
     border-radius: 17px;
     width: 60px;
     height: 40px;
+    text-align: center;
+    padding-bottom: 5px;
+    padding-top: 0px;
   }
 
   li {
@@ -91,6 +95,7 @@ body {
     flex-direction: column;
     color: #ccd5ae;
   }
+
   header {
    background-color: #d4a373;
    position: absolute;

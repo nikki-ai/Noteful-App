@@ -39,11 +39,9 @@ class Main extends React.Component {
     const { folders } = this.context;
 
     return (
-        <main className='mainStyling'>
-          <section className='split left'>
-            <Link to='/add-folder'>
-              <button className='body-button'>Add Folder</button>
-            </Link>
+        <div className='mainStyling'>
+          <section className='split left'><h2>Folders</h2>
+            <Link to='/add-folder' className='body-button'>Add Folder</Link>
             
             <ul>
               {folders.map((folder) => (
@@ -54,15 +52,13 @@ class Main extends React.Component {
             </ul>
           </section>
 
-          <section className='split right'>
-            <Link to='/add-note'>
-              <button className='body-button'>Add Note</button>
-            </Link>
+          <section className='split right'><h2>Notes</h2>
+            <Link to='/add-note' className='body-button'>Add Note</Link>
             <ul>
             {this.generateNoteList()}
             </ul>
           </section>
-        </main>
+        </div>
     );
   }
 }

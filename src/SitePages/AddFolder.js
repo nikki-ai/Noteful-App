@@ -51,7 +51,7 @@ class AddFolder extends Component {
     ) : ("");
 
     return (
-      <div>
+      <div className='formStyling'>
         <form className="addForm" onSubmit={(e) => this.handleSubmit(e)}>
           <fieldset>
             <h2>Create a New Folder</h2>
@@ -59,10 +59,14 @@ class AddFolder extends Component {
             <br />
             <input type="text" name="folderName" required/>
             <br />
-            <button type="submit">Submit</button>
+            <div className='form-buttons'>
+              <button type="submit">Submit</button>
+              <button onClick={() => this.props.history.goBack()}>Cancel</button>
+            </div>
+            
           </fieldset>
         </form>
-        <button onClick={() => this.props.history.goBack()}>Cancel</button>
+        
       </div>
     );
   }
