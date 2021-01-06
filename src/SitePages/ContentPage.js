@@ -3,6 +3,7 @@ import '../Split.css';
 import Notes from './Notes';
 import { Link } from 'react-router-dom';
 import ApiContext from '../ApiContext';
+import ErrorBoundaries from '../ErrorBoundaries';
 
 class Content extends React.Component {
   static contextType = ApiContext;
@@ -20,7 +21,8 @@ class Content extends React.Component {
     const currentFolder = this.findFolder(this.context.folders, note.folderId);
 
     return (
-      <div className='mainStyling'>
+    <ErrorBoundaries>
+        <div className='mainStyling'>
         <div className='split left'>
           <button
             className='body-button'
@@ -35,6 +37,8 @@ class Content extends React.Component {
             {note.content}
         </div>
       </div>
+    </ErrorBoundaries>
+      
     );
   }
 }

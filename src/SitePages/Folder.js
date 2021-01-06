@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ApiContext from '../ApiContext';
+import ErrorBoundaries from '../ErrorBoundaries';
 
 class Folder extends React.Component {
   static contextType = ApiContext;
@@ -22,7 +23,8 @@ class Folder extends React.Component {
 
   render() {
     return (
-      <div>
+      <ErrorBoundaries>
+        <div>
         <fieldset>
           <NavLink to={`/folder/${this.props.id}`}>
               {this.getFolderName()}
@@ -31,6 +33,8 @@ class Folder extends React.Component {
           {this.getFolderLength()}
         </fieldset>
       </div>
+      </ErrorBoundaries>
+      
     );
   }
 }

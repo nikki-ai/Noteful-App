@@ -8,6 +8,8 @@ import './Split.css';
 import config from './config';
 import AddFolder from './SitePages/AddFolder';
 import AddNote from './SitePages/AddNote';
+import ErrorBoundaries from './ErrorBoundaries';
+
 
 
 class App extends React.Component {
@@ -88,11 +90,11 @@ class App extends React.Component {
       addNote: this.addNote
     };
 
+    
     return (
       <ApiContext.Provider value = {value}>
-      
-      
-        <header>
+        <ErrorBoundaries>
+          <header>
           <Link to='/'>
             <h1>Noteful</h1>
           </Link>
@@ -122,8 +124,7 @@ class App extends React.Component {
           component = {AddNote}
         />
         <footer></footer>
-      
-      
+        </ErrorBoundaries>
       </ApiContext.Provider>
     );
   }

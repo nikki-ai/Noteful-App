@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import ApiContext from '../ApiContext';
+import ErrorBoundaries from '../ErrorBoundaries';
 
 class Notes extends React.Component {
 
@@ -20,7 +21,8 @@ class Notes extends React.Component {
 
   render() {
     return (
-      <div>
+      <ErrorBoundaries>
+        <div>
         <fieldset>
           <h2>
             <Link to={`/note/${this.props.id}`}>{this.getNoteName()}</Link>
@@ -29,6 +31,7 @@ class Notes extends React.Component {
           <button onClick = {() => this.context.deleteNote(this.props.id)}>Delete</button>
         </fieldset>
       </div>
+      </ErrorBoundaries>
     );
   }
 }
