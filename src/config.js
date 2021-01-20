@@ -1,3 +1,3 @@
 export default {
-    url: 'http://localhost:9090'
+    url: 'https://morning-bayou-42032.herokuapp.com'
 }

@@ -13,15 +13,17 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "vercel": "^21.1.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "pre-deploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "mocha --require test/setup.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "migrate:production": "heroku run npm run migrate",
+    "start": "node src/server.js",
+    "deploy": "git push heroku main",
+    "postdeploy": "npm run migrate:production"
   },
   "eslintConfig": {
     "extends": [
