@@ -29,7 +29,7 @@ class Content extends React.Component {
           >
             Go Back
           </button>
-          <div>{currentFolder.name}</div>
+          <div>{currentFolder.title}</div>
         </div>
         <div className='split right'>
             <Notes id={note.id} />
