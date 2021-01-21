@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 class Main extends React.Component {
   static contextType = ApiContext;
   generateNoteList = () => {
-    let currentFolderId = this.props.match.params.folderId;
+    let currentFolderId = Number(this.props.match.params.folderId);
     let notes;
 
     if (currentFolderId) {

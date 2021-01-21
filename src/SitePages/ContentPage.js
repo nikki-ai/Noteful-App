@@ -16,8 +16,8 @@ class Content extends React.Component {
   render() {
     const { notes = [] } = this.context;
     const noteId = this.props.match.params.noteId;
-    const note = this.findNote(notes, noteId) || { content: '' };
-    const currentFolder = this.findFolder(this.context.folders, note.folderId);
+    const note = this.findNote(notes, Number(noteId)) || { content: '' };
+    // const currentFolder = this.findFolder(this.context.folders, note.folderId);
 
     return (
     <ErrorBoundaries>
@@ -29,7 +29,7 @@ class Content extends React.Component {
           >
             Go Back
           </button>
-          <div>{currentFolder.title}</div>
+          {/* <div>{currentFolder.name}</div> */}
         </div>
         <div className='split right'>
             <Notes id={note.id} />

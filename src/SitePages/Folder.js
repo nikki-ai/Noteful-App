@@ -9,7 +9,7 @@ class Folder extends React.Component {
   getFolderLength = () => {
 
     let length = this.context.notes.filter(
-      (note) => note.folderId === this.props.id
+      (note) => note.assigned_folder === this.props.id
     ).length;
     return length;
   };
