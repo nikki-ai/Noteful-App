@@ -1,7 +1,6 @@
 import React from 'react';
 import Main from './SitePages/Main';
 import { Route, Link } from 'react-router-dom';
-import DummyStore from './DummyStore';
 import Content from './SitePages/ContentPage';
 import ApiContext from './ApiContext';
 import './Split.css';

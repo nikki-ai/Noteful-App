@@ -20,6 +20,8 @@ class Main extends React.Component {
               <Notes id={note.id} /><br/>
             </li>
           );
+        }else{
+          return '';
         }
       });
     } else {

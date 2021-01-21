@@ -1,3 +1,4 @@
-export default {
-    url: 'https://morning-bayou-42032.herokuapp.com'
+const config =  {
+    url: 'https://desolate-crag-32907.herokuapp.com'
 }
+export default config;

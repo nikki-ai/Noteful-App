@@ -1,7 +1,6 @@
 import React from "react";
 import { Component } from "react";
 import ApiContext from "../ApiContext";
-import PropTypes from "prop-types";
 import '../Split.css';
 import config from '../config';
 
@@ -23,7 +22,7 @@ class AddFolder extends Component {
 
     fetch(`${config.url}/folders`, {
       method: "POST",
-      body: JSON.stringify({ name: fName }),
+      body: JSON.stringify({ title: fName }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,9 +45,9 @@ class AddFolder extends Component {
   }
 
   render() {
-    const error = this.state.error ? (
-      <div>{this.state.error}</div>
-    ) : ("");
+    // const error = this.state.error ? (
+    //   <div>{this.state.error}</div>
+    // ) : ("");
 
     return (
       <div className='formStyling'>

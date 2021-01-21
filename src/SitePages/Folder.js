@@ -14,11 +14,11 @@ class Folder extends React.Component {
     return length;
   };
 
-  getFolderName = () => {
+  getFolderTitle = () => {
     let currentFolder = this.context.folders.find(
       (folder) => folder.id === this.props.id
     );
-    return currentFolder.name;
+    return currentFolder.title;
   };
 
   render() {
@@ -27,7 +27,7 @@ class Folder extends React.Component {
         <div>
         <fieldset>
           <NavLink to={`/folder/${this.props.id}`}>
-              {this.getFolderName()}
+              {this.getFolderTitle()}
               {' '}
           </NavLink>
           {this.getFolderLength()}

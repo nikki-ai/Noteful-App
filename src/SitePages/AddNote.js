@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import ApiContext from '../ApiContext';
-import PropTypes from 'prop-types';
 import '../Split.css';
 import config from '../config';
 
@@ -25,8 +24,8 @@ class AddNote extends Component {
     fetch(`${config.url}/notes`, {
       method: 'POST',
       body: JSON.stringify({ 
-        name: nName,
-        folderId: fId,
+        title: nName,
+        assigned_folder: fId,
         content: content
       }),
       headers: {
@@ -62,13 +61,14 @@ class AddNote extends Component {
   }
 
   selectOptions = () => {
+    console.log(this.context.folders);
     let selectOptions = this.context.folders.map((folder) => {
       return (
 
         <option
           key={folder.id} value={folder.id}>
           {' '}
-          {folder.name}{' '}
+          {folder.title}{' '}
         </option>
         
       );
@@ -77,7 +77,7 @@ class AddNote extends Component {
   };
 
   render() {
-    const error = this.state.error ? <div>{this.state.error}</div> : '';
+    // const error = this.state.error ? <div>{this.state.error}</div> : '';
 
     return (
       <div className='formStyling'>

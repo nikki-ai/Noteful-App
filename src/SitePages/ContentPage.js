@@ -1,7 +1,6 @@
 import React from 'react';
 import '../Split.css';
 import Notes from './Notes';
-import { Link } from 'react-router-dom';
 import ApiContext from '../ApiContext';
 import ErrorBoundaries from '../ErrorBoundaries';
 
