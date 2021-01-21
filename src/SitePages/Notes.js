@@ -6,6 +6,10 @@ import ErrorBoundaries from '../ErrorBoundaries';
 
 class Notes extends React.Component {
 
+    static defaultProps = {
+      onDeleteNote: () => {},
+    }
+
     static contextType = ApiContext;
 
     //functions that compare the note and folder id to the ones in the store and return them when they match
@@ -19,6 +23,13 @@ class Notes extends React.Component {
         return noteModified.modified
     }
 
+    handleClickDelete = e => {
+      e.preventDefault()
+      const noteId = this.props.id
+      this.context.deleteNote(noteId)
+      this.props.onDeleteNote(noteId)
+    }
+
   render() {
     return (
       <ErrorBoundaries>
@@ -28,7 +39,8 @@ class Notes extends React.Component {
             <Link to={`/note/${this.props.id}`}>{this.getNoteTitle()}</Link>
           </h2>
           <h3>{moment(this.getNoteModified()).format('MM-DD-YY')}</h3>
-          <button onClick = {() => this.context.deleteNote(this.props.id)}>Delete</button>
+          {/* <button onClick = {() => this.context.deleteNote(this.props.id)}>Delete</button> */}
+          <button onClick = {this.handleClickDelete}>Delete</button>
         </fieldset>
       </div>
       </ErrorBoundaries>

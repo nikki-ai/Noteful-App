@@ -47,8 +47,9 @@ class App extends React.Component {
   /* Function that finds notes for given note clicked on */
   findNote = (notes = [], noteId) => notes.find((note) => note.id === noteId);
 
-  handleDeleteNote = noteId => {
+  handleDeleteNote = (noteId) => {
     const deleteUrl = `${config.url}/notes/${noteId}`;
+
     fetch(deleteUrl, {
       method: 'DELETE',
       headers: {
